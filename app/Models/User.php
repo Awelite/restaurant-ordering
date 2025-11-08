@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // ✅ added this line
     ];
 
     /**
@@ -44,5 +45,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /** ✅ Relationships start here */
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class, 'delivery_boy_id');
     }
 }
